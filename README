@@ -1,0 +1,21 @@
+jQuery.shadowtext v1.0
+
+Copyright (c) 2011 Martijn W. van der Lee
+Licensed under the MIT.
+
+Interactive, animated text shadow effects.
+
+Syntax:
+    $(<context>).shadowtext(<options>);
+    
+Arguments:
+    context (required)
+        The DOM tree node containing the text to apply the shadow effect to.
+    options (optional)
+       ...TODO...
+    
+Return:
+    Chainable jQuery nodes.
+
+Examples:
+    ...TODO...

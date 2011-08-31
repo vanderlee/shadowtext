@@ -1,0 +1,148 @@
+<html>
+	<head>
+		<title>Shadowtext</title>
+		<!-- jQuery/jQueryUI (hosted) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+		<script src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+		<link href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet" type="text/css"/>
+		<style>
+			body {
+				font-family:	'Segoe UI', Verdana, Arial, Helvetica, sans-serif;
+				font-size:		62.5%;
+			}		
+			
+			#switcher {
+				float: right;
+				display: inline-block;
+			}			
+			
+			pre {
+				background-color: white;
+				padding: 		10px;
+				border:			solid 1px gray;
+				box-shadow: 	inset 2px 2px 8px #ddd;
+				font-family:	'Droid Sans Mono', 'Courier New', Courier, monospace;
+				font-size:		1em;				
+			}
+			
+			#demos {
+				height: 500px;
+			}
+			
+			.demo {
+				text-align: center;
+				font-size: 500%;
+			}
+		</style>
+						
+		<!-- The widget -->
+		<script src="jquery.shadowtext-1.0.js"></script>		
+		<script src="../px/jquery.px-1.0.js"></script>		
+		<script>	
+			$( function() {			
+				// For the documentation
+				$('#switcher').themeswitcher();
+				$("#tabs").tabs();
+				$("#demos").accordion({
+					fillSpace: true
+				});
+		
+				// Shadowtexts
+				$('.demo-default').shadowtext();
+				
+				$('.demo-advanced').shadowtext({
+					color:			"#800",
+					distance: 		'100px',
+					blurClose:		0,
+					blurFar:		'100px',
+					opacityClose:	1,
+					opacityFar:		0,
+					framerate:		25
+				});
+				
+				$('.demo-focus').shadowtext({
+					color:			'black',
+					distance: 		0,
+					blurClose:		0,
+					blurFar:		'100px',
+					hideText:		true,
+					mouseRange:		'400px'
+				});		
+				
+				$('.demo-axis').shadowtext({
+					distance:	'1em',
+					axis:		'y',
+					mouseRange:	'50vh'
+				});
+			});
+		</script>
+	</head>
+	
+	<body>
+		<div id="switcher"></div>	
+		
+		<h1>jQuery ShadowText widget</h1>
+		
+		This jQuery widget gives each individual text symbol a dropshadow, moving in response to the mouse position.
+		
+		<h2>Demonstrations</h2>
+		
+		<div>
+			<div id="demos">
+				<h3><a href="#">Default</a></h3>
+				<div>
+<pre>
+$('.demo-default').shadowtext();
+</pre>
+					<div class="demo"><span class="demo-default">ShadowText</span></div>					
+				</div>
+			
+				<h3><a href="#">Advanced options</a></h3>
+				<div>
+<pre>
+$('.demo-advanced').shadowtext({
+	color:			"#800",
+	distance: 		'100px',
+	blurClose:		0,
+	blurFar:		'100px',
+	opacityClose:	1,
+	opacityFar:		0,
+	framerate:		25
+});
+</pre>
+					<div class="demo"><span class="demo-advanced" style="color: #eee;">Shad<span style="font-size: 200%; color: rgba(234,234,234,.5); font-weight: bold; font-style: italic;">o</span>wText</span></div>
+				</div>
+								
+				<h3><a href="#">Focus</a></h3>
+				<div>
+<pre>
+$('.demo-focus').shadowtext({
+	color:			'black',
+	distance: 		0,
+	blurClose:		0,
+	blurFar:		'100px',
+	hideText:		true,
+	mouseRange:		'400px'	// requires jQuery.px
+});
+</pre>
+					<div class="demo"><span class="demo-focus">Move mouse to focus!</span></div>
+				</div>
+				
+				<h3><a href="#">Axis</a></h3>
+				<div>
+<pre>
+$('.demo-axis').shadowtext({
+	distance:	'1em',
+	axis:		'y',
+	mouseRange:	'50vh'
+});
+</pre>
+					<div class="demo"><span class="demo-axis">Up|Down</span></div>
+				</div>
+				
+			</div>
+		</div>
+	</body>
+</html>
