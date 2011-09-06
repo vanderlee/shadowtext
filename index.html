@@ -7,6 +7,7 @@
 		<script src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
 		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css"/>
 		<link href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet" type="text/css"/>
+		<link href='http://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>		
 		<style>
 			body {
 				font-family:	'Segoe UI', Verdana, Arial, Helvetica, sans-serif;
@@ -14,9 +15,30 @@
 			}		
 			
 			#switcher {
-				float: right;
-				display: inline-block;
-			}			
+				float: 			right;
+				display: 		inline-block;
+			}		
+
+			.footer {
+				position:		absolute;
+				bottom: 		0;
+				right: 			0;
+				color:			#666;
+				background:		#ccc;
+				background: 	-webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbb), to(#ddd));
+				background: 	-webkit-linear-gradient(top, #ddd, #bbb);
+				background: 	-moz-linear-gradient(top, #ddd, #bbb);
+				background: 	-ms-linear-gradient(top, #ddd, #bbb);
+				background: 	-o-linear-gradient(top, #ddd, #bbb);				
+				text-shadow:	0 1px 1px white;
+				padding:		.5em 1em .5em 2em;
+				border-top:		1px solid #ccc;
+				border-left:	1px solid #ccc;
+				box-shadow:		0 0 8px rgba(0,0,0,.25);
+				-webkit-border-top-left-radius: 3em 1.5em;
+				-moz-border-radius-topleft: 	3em 1.5em;
+				border-top-left-radius: 		3em 1.5em;
+			}
 			
 			pre {
 				background-color: white;
@@ -28,23 +50,38 @@
 			}
 			
 			#demos {
-				height: 500px;
+				height: 600px;
 			}
 			
 			.demo {
 				text-align: center;
 				font-size: 500%;
 			}
+			
+			.demo-tape {
+				background:		#339;
+				background: 	-webkit-gradient(linear, 0% 0%, 0% 100%, from(#006), to(#66c));
+				background: 	-webkit-linear-gradient(top, #66c, #006);
+				background: 	-moz-linear-gradient(top, #66c, #006);
+				background: 	-ms-linear-gradient(top, #66c, #006);
+				background: 	-o-linear-gradient(top, #66c, #006);
+				border-top:		solid 1px #99f;
+				border-bottom:	solid 1px black;
+				padding: 		.25em 4em;
+				box-shadow:		0 2px 8px rgba(0,0,0,.5);
+				font-family:	"Courier New", Courier, monospace;
+				font-weight: 	bold;
+				color:			#66c;
+			}
 		</style>
 						
 		<!-- The widget -->
 		<script src="jquery.shadowtext-1.0.js"></script>		
-		<script src="../px/jquery.px-1.0.js"></script>		
+		<script src="jquery.px-1.0.js"></script>		
 		<script>	
 			$( function() {			
 				// For the documentation
 				$('#switcher').themeswitcher();
-				$("#tabs").tabs();
 				$("#demos").accordion({
 					fillSpace: true
 				});
@@ -52,29 +89,58 @@
 				// Shadowtexts
 				$('.demo-default').shadowtext();
 				
-				$('.demo-advanced').shadowtext({
+				$('.demo-background').shadowtext({
 					color:			"#800",
-					distance: 		'100px',
-					blurClose:		0,
-					blurFar:		'100px',
-					opacityClose:	1,
+					distance: 		100,
+					blurFar:		100,
 					opacityFar:		0,
-					framerate:		25
+					framerate:		25,
+					mouseRange:		1000
 				});
 				
 				$('.demo-focus').shadowtext({
 					color:			'black',
 					distance: 		0,
-					blurClose:		0,
-					blurFar:		'100px',
+					blurFar:		100,
 					hideText:		true,
-					mouseRange:		'400px'
+					mouseRange:		400
 				});		
 				
 				$('.demo-axis').shadowtext({
 					distance:	'1em',
 					axis:		'y',
 					mouseRange:	'50vh'
+				});
+				
+				$('.demo-webfont').shadowtext({
+					distance:	20
+				});
+				
+				$('.demo-tape').shadowtext({
+					color: 		'white',
+					distance:	3,
+					blurClose:	1,
+					blurFar:	5,
+					mouseRange:	-20
+				});
+				
+				$('.demo-short-range').shadowtext({
+					color:			'#960',
+					distance:		50,
+					blurClose:		2,
+					blurFar:		50,
+					opacityClose:	1,
+					opacityFar:		0,
+					mouseRange:		100,
+					axis:			'x'
+				});		
+
+				$('.demo-easing').shadowtext({
+					distance:	100,
+					easing:		'easeInBounce'
+				});
+				$('.demo-non-easing').shadowtext({
+					distance:	100
 				});
 			});
 		</script>
@@ -96,23 +162,22 @@
 <pre>
 $('.demo-default').shadowtext();
 </pre>
-					<div class="demo"><span class="demo-default">ShadowText</span></div>					
+					<div class="demo"><span class="demo-default">Default<br/>options</span></div>					
 				</div>
 			
-				<h3><a href="#">Advanced options</a></h3>
+				<h3><a href="#">Background</a></h3>
 				<div>
 <pre>
-$('.demo-advanced').shadowtext({
+$('.demo-background').shadowtext({
 	color:			"#800",
-	distance: 		'100px',
-	blurClose:		0,
-	blurFar:		'100px',
-	opacityClose:	1,
+	distance: 		100,
+	blurFar:		100,
 	opacityFar:		0,
-	framerate:		25
+	framerate:		25,
+	mouseRange:		1000
 });
 </pre>
-					<div class="demo"><span class="demo-advanced" style="color: #eee;">Shad<span style="font-size: 200%; color: rgba(234,234,234,.5); font-weight: bold; font-style: italic;">o</span>wText</span></div>
+					<div class="demo"><span class="demo-background" style="color: #eee;">Background</span></div>
 				</div>
 								
 				<h3><a href="#">Focus</a></h3>
@@ -121,28 +186,92 @@ $('.demo-advanced').shadowtext({
 $('.demo-focus').shadowtext({
 	color:			'black',
 	distance: 		0,
-	blurClose:		0,
-	blurFar:		'100px',
+	blurFar:		100,
 	hideText:		true,
-	mouseRange:		'400px'	// requires jQuery.px
+	mouseRange:		400
 });
 </pre>
-					<div class="demo"><span class="demo-focus">Move mouse to focus!</span></div>
+					<div class="demo"><span class="demo-focus">Move mouse to focus</span></div>
 				</div>
 				
 				<h3><a href="#">Axis</a></h3>
 				<div>
 <pre>
 $('.demo-axis').shadowtext({
-	distance:	'1em',
+	distance:	'1em',		// requires jQuery.px
 	axis:		'y',
-	mouseRange:	'50vh'
+	mouseRange:	'50vh'		// requires jQuery.px
 });
 </pre>
 					<div class="demo"><span class="demo-axis">Up|Down</span></div>
 				</div>
 				
+				<h3><a href="#">Webfont</a></h3>
+				<div>
+<pre>
+$('.demo-webfont').shadowtext({
+	distance:	20
+});
+</pre>
+					<div class="demo"><span class="demo-webfont" style="font-family: Monoton;">Webfont &quot;Monoton&quot;</span></div>					
+				</div>
+							
+				<h3><a href="#">Font styles</a></h3>
+				<div>
+<pre>
+$('.demo-default').shadowtext();
+</pre>
+					<div class="demo"><span class="demo-default"><b>F</b><span style="color: rgba(0,0,0,.25); font-size: 200%;">o</span><code>n</code><i>t</i> <span style="color: #060;">s</span>t<sup>y</sup><span style="font-size: 150%">l</span><u>e</u><span style="font-weight: bold; font-size: 125%; -webkit-text-stroke: 2px black; color: transparent">s</span></div>
+				</div>	
+				
+				<h3><a href="#">Tapewriter</a></h3>
+				<div>
+<pre>
+$('.demo-tape').shadowtext({
+	color: 		'white',
+	distance:	3,
+	blurClose:	1,
+	blurFar:	5,
+	mouseRange:	-20
+});
+</pre>
+					<div class="demo"><span class="demo-tape">Tapewriter</span></div>
+				</div>
+						
+							
+				<h3><a href="#">Short range</a></h3>
+				<div>
+<pre>
+$('.demo-short-range').shadowtext({
+	color:			'#960',
+	distance:		50,
+	blurClose:		2,
+	blurFar:		50,
+	opacityClose:	1,
+	opacityFar:		0,
+	mouseRange:		100,
+	axis:			'x'
+});
+</pre>
+					<div class="demo"><span class="demo-short-range">Short range</span></div>
+				</div>
+				
+				<h3><a href="#">Easing</a></h3>
+				<div>
+<pre>
+$('.demo-easing').shadowtext({
+	distance:	100,
+	easing:		'easeInBounce'
+});
+$('.demo-non-easing').shadowtext({
+	distance:	100
+});
+</pre>
+					<div class="demo"><span class="demo-easing">Easing</span></div>
+					<div class="demo"><span class="demo-non-easing">Non-Easing</span></div>
+				</div>
 			</div>
 		</div>
+		<div class="footer">Copyright &copy; 2011 Martijn W. van der Lee. MIT licensed.</footer>
 	</body>
 </html>

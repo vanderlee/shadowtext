@@ -4,25 +4,27 @@
  * Licensed under the MIT.
  *
  * Creates shadow text that follows the mouse pointer.
+ *
+ * Possible future directions
+ *	colorFar/colorClose
+ *	blurEasing,distanceEasing,colorEasing,opacityEasing
+ *	Non-orthogonal axis restrictions.
  */
-
-//TODO Use some more appropriate option names
-//TODO Use easings for attenuation curve?
-//TODO mouseRange; use the 'vd' unit and treat unnamed as pixels?
 
 (function($) {
 $.widget("ui.shadowtext", {
 	options: {
 		color:			"#000",
 		hideText:		false,
-		distance: 		'10px',
-		blurClose:		'5px',
-		blurFar:		'10px',
+		distance: 		10,
+		blurClose:		0,
+		blurFar:		10,
 		opacityClose:	1,
-		opacityFar:		.5,
+		opacityFar:		1,
 		framerate:		13,
-		mouseRange:		100,	// % of diagonal
-		axis:			'both',
+		mouseRange:		500,
+		axis:			'',		// 'x', 'y'
+		easing:			''
 	},
 
 	_create: function() {						
@@ -52,10 +54,6 @@ $.widget("ui.shadowtext", {
 		return Math.sqrt((x * x) + (y * y));
 	},
 	
-	_windowDiagonal: function() {
-		return this._hypot($(window).width(), $(window).height());
-	},
-	
 	_span: function(element, widget) {
 		if (element.nodeType === 3) {
 			var chars = '';
@@ -74,11 +72,15 @@ $.widget("ui.shadowtext", {
 	},
 	
 	_px: function(size, widget) {
-		if		(size == '0')								return 0;	
-		else if (m = /^([-+]?\d*\.?\d*)px$/i.exec(size))	return parseInt(m[1]);		
-		else if (parseFloat(size) == size)					return widget._windowDiagonal() * size / 100;
-		else if ($.fn.px != 'undefined')					return $(widget.element).px(size);
-		else												return widget._windowDiagonal();
+		if		(size == '0')				return 0;	
+		else if (parseFloat(size) == size)	return size;
+		else if ($.fn.px != 'undefined')	return $(widget.element).px(size);
+		else								return size;
+	},
+	
+	_ease: function(method, fraction) {
+		return fraction >= 0? jQuery.easing[method](null, fraction, 0, 1, 1)
+							: -jQuery.easing[method](null, -fraction, 0, 1, 1);	
 	},
 	
 	_animationTimer: 0,
@@ -89,22 +91,22 @@ $.widget("ui.shadowtext", {
 			return;
 		}
 		this._animationTimer = t;		
-
-		var widget = this;		
 		
+		var widget = this;		
+
+		// px corrected
+		var o_range		= widget._px(widget.options.mouseRange, widget);
+		var o_distance	= widget._px(widget.options.distance, widget);
+		var o_blurClose	= widget._px(widget.options.blurClose, widget);
+		var o_blurFar	= widget._px(widget.options.blurFar, widget);
+				
 		//TODO This should only be needed when the DOM node was not visible.
 		// return !(jQuery(a).is(':hidden') || jQuery(a).parents(':hidden').length);
 		var position = $('.ui-shadowtext-shadow', this.element).first().position();
 		$('.ui-shadowtext-original', this.element).each( function() {
 			$(this).css('left', position.left).css('top', position.top);
 		});
-	
-		// px corrected
-		var o_range		= widget._px(widget.options.mouseRange, widget);
-		var o_distance	= widget._px(widget.options.distance, widget);
-		var o_blurClose	= widget._px(widget.options.blurClose, widget);
-		var o_blurFar	= widget._px(widget.options.blurFar, widget);
-			
+				
 		$('.ui-shadowtext-symbol', this.element).each( function(index) {		
 			h = $(this).height() / -2;
 			w = $(this).width() / -2;
@@ -112,7 +114,22 @@ $.widget("ui.shadowtext", {
 			var p			= $(this).offset();
 			var shadow_x	= widget.options.axis != 'y'? (p.left - x - w) / o_range : 0;
 			var shadow_y	= widget.options.axis != 'x'? (p.top  - y - h) / o_range : 0;
-			var distance	= Math.min(1., widget._hypot(shadow_x, shadow_y));
+			var distance	= widget._hypot(shadow_x, shadow_y);
+			
+			if (distance > 1.) {
+				var scale = 1. / distance;
+				shadow_x *= scale;
+				shadow_y *= scale;
+				distance *= scale;
+			}
+			
+			// apply easing
+			if (widget.options.easing) {
+				shadow_x = widget._ease(widget.options.easing, shadow_x);
+				shadow_y = widget._ease(widget.options.easing, shadow_y);
+				distance = widget._ease(widget.options.easing, distance);
+			}
+			
 			var radius		= widget._scale(distance, 0, 1, o_blurClose, o_blurFar);
 			var opacity		= widget._scale(distance, 0, 1, widget.options.opacityClose, widget.options.opacityFar);
 			var rgb			= widget._colorToRGB(widget.options.color);
