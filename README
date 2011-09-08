@@ -15,7 +15,7 @@ Arguments:
     context (required)
         The DOM tree node containing the text to apply the shadow effect to.
     options (optional)
-        You can specify any of a number of options to change the default behavrious:
+        You can specify a map of options to change the default behaviour:
             axis (default '')
                 Restrict the axis of movement. Either 'x' or 'y' are allowed. Leave
                 empty if you don't want to restrict the axis.
