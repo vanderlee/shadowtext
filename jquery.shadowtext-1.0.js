@@ -12,7 +12,7 @@
  */
 
 (function($) {
-$.widget("ui.shadowtext", {
+$.widget("vanderlee.shadowtext", {
 	options: {
 		color:			"#000",
 		hideText:		false,
