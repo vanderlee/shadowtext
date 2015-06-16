@@ -1,6 +1,8 @@
-jQuery.shadowtext v1.0
+jQuery.shadowtext
+=================
+Version 1.1
 
-Copyright (c) 2011 Martijn W. van der Lee
+Copyright (c) 2011-2015 Martijn W. van der Lee
 Licensed under the MIT.
 
 Interactive, animated text shadow effects.
