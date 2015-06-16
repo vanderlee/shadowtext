@@ -1,14 +1,13 @@
-/* ShadowText
+/*jslint devel: true, bitwise: true, regexp: true, browser: true, confusion: true, unparam: true, eqeq: true, white: true, nomen: true, plusplus: true, maxerr: 50, indent: 4 */
+/*globals jQuery */
+
+/*!
+ * ShadowText
  *
  * Copyright (c) 2011-2015 Martijn W. van der Lee
  * Licensed under the MIT.
- *
- * Creates shadow text that follows the mouse pointer.
- *
- * Possible future directions
- *	colorFar/colorClose
- *	blurEasing,distanceEasing,colorEasing,opacityEasing
- *	Non-orthogonal axis restrictions.
+ */
+/* Creates shadow text that follows the mouse pointer.
  */
 
 (function($, undefined) {
